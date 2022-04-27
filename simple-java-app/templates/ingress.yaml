@@ -11,5 +11,5 @@ spec:
         paths:
           - path: {{ .Values.ingress.path }}
             backend:
-              serviceName: simple-service-{{ .Values.image.tag }}
+              serviceName: sandbox-test-service-{{ .Values.image.tag }}
               servicePort: 80
