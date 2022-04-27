@@ -1,7 +1,7 @@
 kind: Ingress
 apiVersion: extensions/v1beta1
 metadata:
-  name: "simple-java-app-ing"
+  name: "sandbox-test-ingress-{{ .Values.image.tag }}"
   annotations:
     kubernetes.io/ingress.class: {{ .Values.ingress.class }}
 
