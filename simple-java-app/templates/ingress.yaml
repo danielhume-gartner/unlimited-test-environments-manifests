@@ -15,9 +15,6 @@ apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
   name: "sandbox-test-ingress-{{ .Values.image.tag }}"
-  #labels:
-  #  {{- include "dm-admin.labels" . | nindent 4 }}
-  {{- with .Values.ingress.annotations }}
   annotations:
     {{- toYaml . | nindent 4 }}
   {{- end }}
