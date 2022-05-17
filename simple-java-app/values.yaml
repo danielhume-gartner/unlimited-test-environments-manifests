@@ -11,8 +11,26 @@ image:
   tag: latest
 
 ingress:
-  class: ambassador
-  path: /staging/
+  enabled: false
+  # className: "alb"
+  subnets: ""
+  securityGroups: ""
+  wafAclId: ""
+  subdomain: ""
+  annotations: 
+    kubernetes.io/ingress.class: alb
+    alb.ingress.kubernetes.io/scheme: internal
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}]'
+    meta.helm.sh/release-name: dm-admin
+    meta.helm.sh/release-namespace: reviews-codefresh
+  hosts:
+    - host: dmsandbox.aws.gartner.com
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+          backend:
+            serviceName: sandbox-test
+            servicePort: 80
 
 
 
