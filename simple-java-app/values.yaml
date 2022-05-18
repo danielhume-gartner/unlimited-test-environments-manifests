@@ -33,7 +33,7 @@ ingress:
         - path: /
           pathType: ImplementationSpecific
           backend:
-            serviceName: sandbox-test
+            serviceName: sandbox-test-main
             servicePort: 80
 
 
