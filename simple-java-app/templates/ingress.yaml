@@ -50,11 +50,11 @@ spec:
             backend:
               {{- if semverCompare ">=1.19-0" $.Capabilities.KubeVersion.GitVersion }}
               service:
-                name: "sandbox-test-ingress-{{ .Values.image.tag }}"
+                name: "sandbox-test-ingress-{{ $.Values.image.tag }}"
                 port:
                   number: 80
               {{- else }}
-              serviceName: "sandbox-test-ingress-{{ .Values.image.tag }}"
+              serviceName: "sandbox-test-ingress-{{ $.Values.image.tag }}"
               servicePort: 80
               {{- end }}
           {{- end }}
