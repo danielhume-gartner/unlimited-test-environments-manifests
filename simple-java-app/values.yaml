@@ -5,7 +5,7 @@
 replicaCount: 1
 
 image:
-  repository: danielhume-gartner/spring-actuator-sample-app
+  repository: gdmreviewsinternal.azurecr.io/danielhume-gartner/spring-actuator-sample-app
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: latest
