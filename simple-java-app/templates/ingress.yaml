@@ -1,5 +1,5 @@
-{{- if .Values.ingress.enabled -}}
-{{- $svcPort := .Values.service.port -}}
+{{- if .Values.ingress.enabled -}} # Either this or line 2 is failing to read correctly from values.yaml, leading to error: undefined variable "$svcPort"
+{{- $svcPort := .Values.service.port -}} # Temporarily replacing those variables below with hard coded value 80
 {{- if and .Values.ingress.className (not (semverCompare ">=1.18-0" .Capabilities.KubeVersion.GitVersion)) }}
   {{- if not (hasKey .Values.ingress.annotations "kubernetes.io/ingress.class") }}
   {{- $_ := set .Values.ingress.annotations "kubernetes.io/ingress.class" .Values.ingress.className}}
@@ -50,10 +50,10 @@ spec:
               service:
                 name: "sandbox-test-ingress-{{ .Values.image.tag }}"
                 port:
-                  number: {{ $svcPort }}
+                  number: 80
               {{- else }}
               serviceName: "sandbox-test-ingress-{{ .Values.image.tag }}"
-              servicePort: {{ $svcPort }}
+              servicePort: 80
               {{- end }}
           {{- end }}
     {{- end }}
