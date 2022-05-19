@@ -8,7 +8,7 @@ metadata:
     app.kubernetes.io/managed-by: "{{ .Release.Service  }}"
     app.kubernetes.io/instance: "{{ .Release.Name }}"  
 spec:
-  type: ClusterIP
+  type: NodePort
   selector:
     app: simple-java-app
   ports:
