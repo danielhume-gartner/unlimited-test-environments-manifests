@@ -17,7 +17,7 @@ apiVersion: extensions/v1beta1
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: "sandbox-test-ingress-{{ .Values.image.tag }}"
+  name: "sandbox-test-ingress-{{ .Values.image.branch }}"
   # labels section was removed from here! was including from a dm-admin specific file. restore/replace if labels are really needed!
   {{- with .Values.ingress.annotations }}
   annotations:
@@ -53,11 +53,11 @@ spec:
             backend:
               {{- if semverCompare ">=1.19-0" $.Capabilities.KubeVersion.GitVersion }}
               service:
-                name: "sandbox-test-service-{{ $.Values.image.tag }}"
+                name: "sandbox-test-service-{{ $.Values.image.branch }}"
                 port:
                   number: 80
               {{- else }}
-              serviceName: "sandbox-test-service-{{ $.Values.image.tag }}"
+              serviceName: "sandbox-test-service-{{ $.Values.image.branch }}"
               servicePort: 80
               {{- end }}
           {{- end }}
