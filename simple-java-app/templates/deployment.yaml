@@ -2,7 +2,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: sandbox-test-deployment-{{ .Values.image.tag }}
+  name: sandbox-test-deployment-{{ .Values.image.branch }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
