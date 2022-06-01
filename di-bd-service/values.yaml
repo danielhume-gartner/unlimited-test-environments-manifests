@@ -36,7 +36,7 @@ ingress:
         - path: /
           pathType: ImplementationSpecific
           backend:
-            serviceName: di-bd-service-master
+            serviceName: di-bd-service-service-master
             servicePort: 80
 
 
