@@ -23,6 +23,7 @@ metadata:
   annotations:
     {{- toYaml . | nindent 4 }}
   {{- end }}
+    meta.helm.sh/release-name: di-bd-service-{{ .Values.image.branch }}
     alb.ingress.kubernetes.io/security-groups: "{{ .Values.ingress.securityGroups }}"
     alb.ingress.kubernetes.io/subnets: "{{ .Values.ingress.subnets }}"
     alb.ingress.kubernetes.io/waf-acl-id: "{{ .Values.ingress.wafAclId }}"

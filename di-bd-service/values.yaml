@@ -1,4 +1,3 @@
-# Default values for simple-java-app.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
@@ -28,7 +27,6 @@ ingress:
     kubernetes.io/ingress.class: alb
     alb.ingress.kubernetes.io/scheme: internal
     alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}]'
-    meta.helm.sh/release-name: di-bd-service-master
     meta.helm.sh/release-namespace: data-insights-codefresh
   hosts:
     - host: dmsandbox.aws.gartner.com
@@ -36,7 +34,6 @@ ingress:
         - path: /
           pathType: ImplementationSpecific
           backend:
-            serviceName: di-bd-service-service-master
             servicePort: 80
 
 

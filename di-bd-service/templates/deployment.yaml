@@ -7,18 +7,18 @@ spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app: di-bd-service
+      app: di-bd-service-{{ .Values.image.branch }}
   template:
     metadata:
       labels:
-        app: di-bd-service
+        app: di-bd-service-{{ .Values.image.branch }}
     spec:
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       containers:
-      - name: di-bd-service
+      - name: di-bd-service-{{ .Values.image.branch }}
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
         imagePullPolicy: {{ .Values.image.pullPolicy }}
         ports:
