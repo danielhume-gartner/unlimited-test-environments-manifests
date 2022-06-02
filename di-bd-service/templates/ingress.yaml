@@ -17,13 +17,13 @@ apiVersion: extensions/v1beta1
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: "di-bd-service-ingress-{{ .Values.image.branch }}"
+  name: "di-bd-service-ingress-{{ lower .Values.image.branch }}"
   # labels section was removed from here! was including from a dm-admin specific file. restore/replace if labels are really needed!
   {{- with .Values.ingress.annotations }}
   annotations:
     {{- toYaml . | nindent 4 }}
   {{- end }}
-    meta.helm.sh/release-name: di-bd-service-{{ .Values.image.branch }}
+    meta.helm.sh/release-name: di-bd-service-{{ lower .Values.image.branch }}
     alb.ingress.kubernetes.io/security-groups: "{{ .Values.ingress.securityGroups }}"
     alb.ingress.kubernetes.io/subnets: "{{ .Values.ingress.subnets }}"
     alb.ingress.kubernetes.io/waf-acl-id: "{{ .Values.ingress.wafAclId }}"
@@ -54,11 +54,11 @@ spec:
             backend:
               {{- if semverCompare ">=1.19-0" $.Capabilities.KubeVersion.GitVersion }}
               service:
-                name: "di-bd-service-service-{{ $.Values.image.branch }}"
+                name: "di-bd-service-service-{{ lower $.Values.image.branch }}"
                 port:
                   number: 80
               {{- else }}
-              serviceName: "di-bd-service-service-{{ $.Values.image.branch }}"
+              serviceName: "di-bd-service-service-{{ lower $.Values.image.branch }}"
               servicePort: 80
               {{- end }}
           {{- end }}
