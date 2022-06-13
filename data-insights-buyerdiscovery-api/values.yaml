@@ -1,0 +1,50 @@
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+image:
+  repository: gdmreviewsinternal.azurecr.io/data-insights-buyerdiscovery-api
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: latest
+  branch: master
+  
+imagePullSecrets: []
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+service:
+  type: NodePort
+  port: 80
+ 
+ingress:
+  enabled: true
+  # className: "alb"
+  subnets: ""
+  securityGroups: ""
+  wafAclId: ""
+  subdomain: ""
+  annotations: 
+    kubernetes.io/ingress.class: alb
+    alb.ingress.kubernetes.io/scheme: internal
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}]'
+    meta.helm.sh/release-namespace: data-insights-codefresh
+  hosts:
+    - host: dmsandbox.aws.gartner.com
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+          backend:
+            servicePort: 80
+
+
+
+
