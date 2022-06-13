@@ -2,23 +2,23 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: di-bd-service-{{ lower .Values.image.branch }}
+  name: di-bd-service-{{ .Values.image.tag }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app: di-bd-service-{{ lower .Values.image.branch }}
+      app: di-bd-service-{{ .Values.image.tag }}
   template:
     metadata:
       labels:
-        app: di-bd-service-{{ lower .Values.image.branch }}
+        app: di-bd-service-{{ .Values.image.tag }}
     spec:
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       containers:
-      - name: di-bd-service-{{ lower .Values.image.branch }}
+      - name: di-bd-service-{{ .Values.image.tag }}
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
         imagePullPolicy: {{ .Values.image.pullPolicy }}
         ports:
