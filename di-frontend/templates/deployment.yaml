@@ -1,0 +1,38 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: di-frontend-{{ .Values.image.tag }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: di-frontend-{{ .Values.image.tag }}
+  template:
+    metadata:
+      labels:
+        app: di-frontend-{{ .Values.image.tag }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      containers:
+      - name: di-frontend-{{ .Values.image.tag }}
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        ports:
+        - containerPort: 80
+        env:
+        - name: VaultAddr
+          value: "https://vault.vaultenterprisedev.aws.gartner.com"
+        - name: VaultSecretId
+          value: "fded0f9f-6a03-3050-46cc-4bc3abae85da"
+        - name: VaultSecretPath
+          value: "secret/applications/dm/datainsightsapi"
+        - name: VaultAppRole
+          value: "591a9486-dac4-27fc-960b-ad6a07869816"
+        - name: VaultEnabled
+          value: "true"
+        - name: DI_API_URL
+          value: "http://di-bd-api-{{ .Values.image.tag }}.dmsandbox.aws.gartner.com"
