@@ -17,13 +17,13 @@ apiVersion: extensions/v1beta1
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: "data-insights-buyerdiscovery-api-ingress-{{ .Values.image.tag }}"
+  name: "di-bd-api-ingress-{{ .Values.image.tag }}"
   # labels section was removed from here! was including from a dm-admin specific file. restore/replace if labels are really needed!
   {{- with .Values.ingress.annotations }}
   annotations:
     {{- toYaml . | nindent 4 }}
   {{- end }}
-    meta.helm.sh/release-name: data-insights-buyerdiscovery-api-{{ .Values.image.tag }}
+    meta.helm.sh/release-name: di-bd-api-{{ .Values.image.tag }}
     alb.ingress.kubernetes.io/security-groups: "{{ .Values.ingress.securityGroups }}"
     alb.ingress.kubernetes.io/subnets: "{{ .Values.ingress.subnets }}"
     alb.ingress.kubernetes.io/waf-acl-id: "{{ .Values.ingress.wafAclId }}"
@@ -54,11 +54,11 @@ spec:
             backend:
               {{- if semverCompare ">=1.19-0" $.Capabilities.KubeVersion.GitVersion }}
               service:
-                name: "data-insights-buyerdiscovery-api-service-{{ $.Values.image.tag }}"
+                name: "di-bd-api-service-{{ $.Values.image.tag }}"
                 port:
                   number: 80
               {{- else }}
-              serviceName: "data-insights-buyerdiscovery-api-service-{{ $.Values.image.tag }}"
+              serviceName: "di-bd-api-service-{{ $.Values.image.tag }}"
               servicePort: 80
               {{- end }}
           {{- end }}
