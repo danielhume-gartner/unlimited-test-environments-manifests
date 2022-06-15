@@ -36,3 +36,5 @@ spec:
           value: "true"
         - name: DI_API_URL
           value: "http://di-bd-api-{{ .Values.image.tag }}.dmsandbox.aws.gartner.com"
+        - name: IS_HTTPS
+          value: "false"
